@@ -1,16 +1,16 @@
-﻿Until now, we have created new creeps directly in the console. It’s not a good idea to do it constantly since the very idea of Screeps is making your colony control itself. You will do well if you teach your spawn to produce creeps in the room on its own.
+﻿// Until now, we have created new creeps directly in the console. It’s not a good idea to do it constantly since the very idea of Screeps is making your colony control itself. You will do well if you teach your spawn to produce creeps in the room on its own.
 
-This is a rather complicated topic and many players spend months perfecting and refining their auto-spawning code. But let’s try at least something simple and master some basic principles to start with.
+// This is a rather complicated topic and many players spend months perfecting and refining their auto-spawning code. But let’s try at least something simple and master some basic principles to start with.
 
-You will have to create new creeps when old ones die from age or some other reasons. Since there are no events in the game to report death of a particular creep, the easiest way is to just count the number of required creeps, and if it becomes less than a defined value, to start spawning.
+// You will have to create new creeps when old ones die from age or some other reasons. Since there are no events in the game to report death of a particular creep, the easiest way is to just count the number of required creeps, and if it becomes less than a defined value, to start spawning.
 
-There are several ways to count the number of creeps of the required type. One of them is filtering Game.creeps with the help of the _.filter function and using the role in their memory. Let’s try to do that and bring the number of creeps into the console.
+// There are several ways to count the number of creeps of the required type. One of them is filtering Game.creeps with the help of the _.filter function and using the role in their memory. Let’s try to do that and bring the number of creeps into the console.
 
-Add the output of the number of creeps with the role harvester into the console.
-Documentation:
-Game.creeps
-lodash.filter
- Code (main)
+// Add the output of the number of creeps with the role harvester into the console.
+// Documentation:
+// Game.creeps
+// lodash.filter
+//  Code (main)
 
  var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
@@ -31,15 +31,15 @@ module.exports.loop = function () {
     }
 }
 
-Let’s say we want to have at least two harvesters at any time. The easiest way to achieve this is to run StructureSpawn.spawnCreep each time we discover it’s less than this number. You may not define its name (it will be given automatically in this case), but don’t forget to define the needed role.
+// Let’s say we want to have at least two harvesters at any time. The easiest way to achieve this is to run StructureSpawn.spawnCreep each time we discover it’s less than this number. You may not define its name (it will be given automatically in this case), but don’t forget to define the needed role.
 
-We may also add some new RoomVisual call in order to visualize what creep is being spawned.
+// We may also add some new RoomVisual call in order to visualize what creep is being spawned.
 
-Add the logic for StructureSpawn.spawnCreep in your main module.
-Documentation:
-StructureSpawn.spawnCreep
-RoomVisual
- Code (main)
+// Add the logic for StructureSpawn.spawnCreep in your main module.
+// Documentation:
+// StructureSpawn.spawnCreep
+// RoomVisual
+//  Code (main)
 
  var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
@@ -76,21 +76,21 @@ module.exports.loop = function () {
     }
 }
 
-Now let’s try to emulate a situation when one of our harvesters dies. You can now give the command suicide to the creep via the console or its properties panel on the right.
+// Now let’s try to emulate a situation when one of our harvesters dies. You can now give the command suicide to the creep via the console or its properties panel on the right.
 
-Make one of the harvesters suicide.
-Documentation:
-Creep.suicide
- Code
+// Make one of the harvesters suicide.
+// Documentation:
+// Creep.suicide
+//  Code
 
- Game.creeps['Harvester1'].suicide()
+//  Game.creeps['Harvester1'].suicide()
 
- As you can see from the console, after we lacked one harvester, the spawn instantly started building a new one with a new name.
+//  As you can see from the console, after we lacked one harvester, the spawn instantly started building a new one with a new name.
 
- An important point here is that the memory of dead creeps is not erased but kept for later reuse. If you create creeps with random names each time it may lead to memory overflow, so you should clear it in the beginning of each tick (prior to the creep creation code).
+//  An important point here is that the memory of dead creeps is not erased but kept for later reuse. If you create creeps with random names each time it may lead to memory overflow, so you should clear it in the beginning of each tick (prior to the creep creation code).
 
-Add code to clear the memory.
- Code (main)
+// Add code to clear the memory.
+//  Code (main)
 
  var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
@@ -134,11 +134,11 @@ module.exports.loop = function () {
     }
 }
 
-Now the memory of the deceased is relegated to oblivion which saves us resources.
+// Now the memory of the deceased is relegated to oblivion which saves us resources.
 
-Apart from creating new creeps after the death of old ones, there is another way to maintain the needed number of creeps: the method StructureSpawn.renewCreep. Creep aging is disabled in the Tutorial, so we recommend that you familiarize yourself with it on your own.
+// Apart from creating new creeps after the death of old ones, there is another way to maintain the needed number of creeps: the method StructureSpawn.renewCreep. Creep aging is disabled in the Tutorial, so we recommend that you familiarize yourself with it on your own.
 
-Documentation:
-StructureSpawn.renewCreep
-https://docs.screeps.com/api/#StructureSpawn.renewCreep
+// Documentation:
+// StructureSpawn.renewCreep
+// https://docs.screeps.com/api/#StructureSpawn.renewCreep
 
